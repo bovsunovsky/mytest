@@ -35,6 +35,7 @@ class ClientAdress extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'postcode', 'country', 'sity', 'street'], 'required'],
+            [['parent_id'], 'safe'],
             [['parent_id', 'building', 'office'], 'integer'],
             [['postcode'], 'string', 'max' => 32],
             [['country'], 'string', 'max' => 4],
@@ -51,12 +52,12 @@ class ClientAdress extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'parent_id' => 'Parent ID',
-            'postcode' => 'Postcode',
-            'country' => 'Country',
-            'sity' => 'Sity',
-            'street' => 'Street',
-            'building' => 'Building',
-            'office' => 'Office',
+            'postcode' => 'Почтовый индекс',
+            'country' => 'Страна',
+            'sity' => 'Город',
+            'street' => 'Улица',
+            'building' => 'Дом',
+            'office' => 'Квартира',
         ];
     }
 
@@ -67,4 +68,19 @@ class ClientAdress extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Client::className(), ['id' => 'parent_id']);
     }
+
+   public $template = '{view} {update} {delete}';
+    public $controller = 'ClientAdressController';
+//
+//      function ($url, $model, $key) {
+//          // return the button HTML code
+//      }
+//
+//      [
+//          'update' => function ($url, $model, $key) {
+//              return $model->status === 'editable' ? Html::a('Update', $url) : '';
+//          },
+//      ],
+//
+
 }

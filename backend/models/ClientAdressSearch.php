@@ -71,4 +71,37 @@ class ClientAdressSearch extends ClientAdress
 
         return $dataProvider;
     }
+    public function searchClient($params, $id)
+    {
+        $query = ClientAdress::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'parent_id' => $id,
+            'building' => $this->building,
+            'office' => $this->office,
+        ]);
+
+        $query->andFilterWhere(['like', 'postcode', $this->postcode])
+            ->andFilterWhere(['like', 'country', $this->country])
+            ->andFilterWhere(['like', 'sity', $this->sity])
+            ->andFilterWhere(['like', 'street', $this->street]);
+
+        return $dataProvider;
+    }
 }

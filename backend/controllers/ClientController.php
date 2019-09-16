@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use app\models\ClientAdressSearch;
 use Yii;
 use app\models\Client;
+use app\models\ClientAdress;
 use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,8 +54,15 @@ class ClientController extends Controller
      */
     public function actionView($id)
     {
+        $searchAdressModel = new ClientAdressSearch();
+        $dataAdressProvider = $searchAdressModel->searchClient(Yii::$app->request->queryParams, $id);
+
+        $models = $this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model_client' => $models['client'],
+            'model_adress' => $models['ClientAdress'],
+            'searchModel' => $searchAdressModel,
+            'dataProvider' => $dataAdressProvider,
         ]);
     }
 
@@ -64,14 +73,40 @@ class ClientController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Client();
+        $model_client = new Client();
+        $model_adress = new ClientAdress();
+        $model_client->created_at = date("Y-m-d H:i:s");
+        if(Yii::$app->request->post())
+        {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (($model_client->load(Yii::$app->request->post()) && $model_client->save()) &&
+                ($model_adress->parent_id = $model_client->id) &&
+                ($model_adress->load(Yii::$app->request->post()) && $model_adress->save()))
+            {
+                return $this->redirect(['view', 'id' => $model_client->id]);
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model_client' => $model_client,
+            'model_adress' => $model_adress,
+        ]);
+    }
+
+    public function actionAdd( $id)
+    {
+        $model_adress = new ClientAdress();
+        $model_adress->parent_id = $id;
+        if(Yii::$app->request->post())
+        {
+            if ($model_adress->load(Yii::$app->request->post()) && $model_adress->save())
+            {
+                return $this->redirect(['view', 'id' => $id]);
+            }
+        }
+
+        return $this->render('add_adress', [
+            'model_adress' => $model_adress,
         ]);
     }
 
@@ -84,14 +119,17 @@ class ClientController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $models = $this->findModel($id);
+        if(Yii::$app->request->post())
+        {
+//echo'<pre>'; var_dump($models); die;
+            if ($models->load(Yii::$app->request->post()) && $models->save()) {
+                return $this->redirect(['view', 'id' => $models->id]);
+            }
         }
-
         return $this->render('update', [
-            'model' => $model,
+            'model_client' => $models['client'],
+            'model_adress' => $models['ClientAdress'],
         ]);
     }
 
@@ -118,10 +156,17 @@ class ClientController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Client::findOne($id)) !== null) {
-            return $model;
-        }
+        $models = [];
+        if ((Client::findOne($id)) !== null)
+        {
+            $models['client'] = Client::findOne($id) ;
 
+        if ((ClientAdress::findAll(['parent_id' => $id])) !== null)
+        {
+            $models['ClientAdress'] = ClientAdress::findAll(['parent_id' => $id]) ;
+        }
+        return $models;
+        }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
