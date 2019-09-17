@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-12">
             <div class="panel-action">
-                <h1><?= Html::encode($this->title) ?></h1>
+                <h2><?= 'Добавление клиента' ?></h2>
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
                 <hr>
             </div>

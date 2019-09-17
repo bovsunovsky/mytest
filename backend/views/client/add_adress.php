@@ -11,8 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-adress-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form_one_adress', [
         'model' => $model_adress,
     ]) ?>

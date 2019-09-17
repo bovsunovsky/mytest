@@ -39,7 +39,7 @@ class ClientController extends Controller
     {
         $searchModel = new ClientSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->pagination->pageSize = 5;
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -56,6 +56,7 @@ class ClientController extends Controller
     {
         $searchAdressModel = new ClientAdressSearch();
         $dataAdressProvider = $searchAdressModel->searchClient(Yii::$app->request->queryParams, $id);
+        $dataAdressProvider->pagination->pageSize = 5;
 
         $models = $this->findModel($id);
         return $this->render('view', [

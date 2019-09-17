@@ -1,5 +1,6 @@
 <?php
 
+use yii\grid\DataColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -12,30 +13,36 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= 'Клиенты' ?></h1>
 
     <p>
-        <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить клиента', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+//                'class' => DataColumn::className(), // Не обязательно
+                'attribute' => 'id',
+                'format' => 'text',
+                'label' => 'Id-пользователя',
+                'headerOptions' => ['width' => '60'],
+            ],
             'login',
-            'pass',
             'firstname',
             'lastname',
+            'pass',
             //'sex',
             //'created_at',
             //'email:email',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+                'headerOptions' => ['width' => '60'],
+            ],
         ],
     ]); ?>
 

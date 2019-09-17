@@ -2,6 +2,7 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -51,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
@@ -63,7 +65,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'building',
                 'office',
 
-                ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update} {delete}'],
+                [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{view} {update} {delete}',
+                        'buttons' => [
+                            'view' => function ($url,$model_adress) {
+                                return Html::a(
+                                    '<span class="glyphicon glyphicon-eye-open"></span>',
+                                    (Url::toRoute('client-adress/view?id='. $model_adress->id)));
+                            },
+                            'update' => function ($url,$model_adress) {
+                                return Html::a(
+                                    '<span class="glyphicon glyphicon-pencil"></span>',
+                                    (Url::toRoute('client-adress/update?id='. $model_adress->id)));
+                            },
+                            'delete' => function ($url,$model_adress) {
+                                return Html::a(
+                                    '<span class="glyphicon glyphicon-trash"></span>',
+                                    (Url::toRoute('client-adress/delete?id='. $model_adress->id)));
+                            },
+
+                        ],
+                    ],
             ],
         ]); ?>
 

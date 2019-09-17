@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
            href="#collapse_2"
            aria-expanded="true"
            aria-controls="collapse_2"
-           class="panel-expand"> Адресс клиента
+           class="panel-expand"> <h2>Адрес клиента</h2>
         </a>
     </h4>
 </div>
