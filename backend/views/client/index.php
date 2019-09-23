@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-//                'class' => DataColumn::className(), // Не обязательно
                 'attribute' => 'id',
                 'format' => 'text',
                 'label' => 'Id-пользователя',
@@ -35,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'lastname',
             'pass',
-            //'sex',
-            //'created_at',
-            //'email:email',
+            'sex',
+            'created_at',
+            'email:email',
 
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',

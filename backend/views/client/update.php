@@ -35,7 +35,12 @@ $this->params['breadcrumbs'][] = 'Update';
 <!--        --><?php //foreach($model_adress as $model): ?>
             <div class="col-4">
                 <div class="panel panel-default">
-                    <?= $this->render('@backend/views/client/_formadress', [ 'model' => $model, 'form'=> $form ]) ?>
+                    <?= $this->render('@backend/views/client/_formadress', [
+                            'model' => $model_adress,
+                            'form'=> $form,
+                            'update' => true ,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider]) ?>
 
                 </div>
             </div>

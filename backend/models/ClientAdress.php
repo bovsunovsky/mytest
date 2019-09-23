@@ -71,16 +71,5 @@ class ClientAdress extends \yii\db\ActiveRecord
 
    public $template = '{view} {update} {delete}';
     public $controller = 'ClientAdressController';
-//
-//      function ($url, $model, $key) {
-//          // return the button HTML code
-//      }
-//
-//      [
-//          'update' => function ($url, $model, $key) {
-//              return $model->status === 'editable' ? Html::a('Update', $url) : '';
-//          },
-//      ],
-//
 
 }

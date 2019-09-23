@@ -121,16 +121,21 @@ class ClientController extends Controller
     public function actionUpdate($id)
     {
         $models = $this->findModel($id);
+        $searchAdressModel = new ClientAdressSearch();
+        $dataAdressProvider = $searchAdressModel->searchClient(Yii::$app->request->queryParams, $id);
+        $dataAdressProvider->pagination->pageSize = 5;
+
         if(Yii::$app->request->post())
         {
-//echo'<pre>'; var_dump($models); die;
-            if ($models->load(Yii::$app->request->post()) && $models->save()) {
-                return $this->redirect(['view', 'id' => $models->id]);
+            if (($models['client']->load(Yii::$app->request->post()) && $models['client']->save())) {
+                return $this->redirect(['view', 'id' => $models['client']->id]);
             }
         }
         return $this->render('update', [
             'model_client' => $models['client'],
             'model_adress' => $models['ClientAdress'],
+            'searchModel' => $searchAdressModel,
+            'dataProvider' => $dataAdressProvider,
         ]);
     }
 
@@ -143,8 +148,8 @@ class ClientController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if(Client::findOne($id)) Client::findOne($id)->delete();
+        if(ClientAdress::findAll(['parent_id' => $id])) ClientAdress::deleteAll(['parent_id' => $id]);
         return $this->redirect(['index']);
     }
 

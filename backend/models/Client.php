@@ -35,10 +35,14 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             [['login', 'pass', 'firstname', 'lastname', 'created_at', 'email'], 'required'],
+            [['login'], 'string','min'=> 4],
+            [['login'], 'unique'],
+            [['pass'], 'string','min'=> 6],
+            [ ['firstname'],'filter','filter'=>'strtolower'],
             [['sex'], 'integer'],
             [['created_at'], 'safe'],
             [['login', 'pass', 'firstname', 'lastname', 'email'], 'string', 'max' => 255],
-            [['login'], 'unique'],
+
             [['email'], 'unique'],
         ];
     }

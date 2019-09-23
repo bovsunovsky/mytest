@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-4">
             <div class="panel panel-default">
-                <?= $this->render('@backend/views/client/_formadress', [ 'model' => $model_adress, 'form'=> $form ]) ?>
+                <?= $this->render('@backend/views/client/_formadress', [ 'model' => $model_adress, 'form'=> $form ,'update' => false]) ?>
 
             </div>
         </div>
