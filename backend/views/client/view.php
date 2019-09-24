@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-view">
 
-<!--    <h1>--><?//= Html::encode($this->title) ?><!--</h1>-->
-
     <p>
         <?= Html::a('Вeрнуться', ['index'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Редактировать', ['update', 'id' => $model_client->id], ['class' => 'btn btn-primary']) ?>
@@ -47,8 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div class="client-adress-view">
-
-<!--    <div class="client-index">-->
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
@@ -91,6 +87,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
 
-
-<!--    </div>-->
 </div>

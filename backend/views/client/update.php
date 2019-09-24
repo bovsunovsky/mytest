@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = 'Update';
                 <?= $this->render('@backend/views/client/_formclient', [ 'model' => $model_client , 'form'=> $form]) ?>
             </div>
         </div>
-
-<!--        --><?php //foreach($model_adress as $model): ?>
             <div class="col-4">
                 <div class="panel panel-default">
                     <?= $this->render('@backend/views/client/_formadress', [
@@ -44,7 +42,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
                 </div>
             </div>
-<!--        --><?php //endforeach; ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

@@ -4,8 +4,6 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-//use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\ClientAdress */
 
@@ -31,8 +29,6 @@ use yii\helpers\Url;
 
         <?php if($update) : ?>
         <div class="client-adress-view">
-
-            <!--    <div class="client-index">-->
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
@@ -75,10 +71,9 @@ use yii\helpers\Url;
                 ],
             ]); ?>
 
-
-            <!--    </div>-->
         </div>
         <?php endif; ?>
+
         <?php if(!$update) : ?>
         <?= $form->field($model, 'postcode')->textInput(['maxlength' => false]) ?>
 
@@ -92,7 +87,6 @@ use yii\helpers\Url;
 
         <?= $form->field($model, 'office')->textInput() ?>
         <?php endif; ?>
-
 
     </div>
 </div>

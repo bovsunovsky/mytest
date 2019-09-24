@@ -37,8 +37,8 @@ class ClientAdress extends \yii\db\ActiveRecord
             [['parent_id', 'postcode', 'country', 'sity', 'street'], 'required'],
             [['parent_id'], 'safe'],
             [['parent_id', 'building', 'office'], 'integer'],
-            [['postcode'], 'string', 'max' => 32],
-            [['country'], 'string', 'max' => 4],
+            [['postcode'], 'string', 'min'=>4 ,'max' => 32],
+            [['country'], 'string', 'max' => 2],
             [['sity', 'street'], 'string', 'max' => 128],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Client::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ];

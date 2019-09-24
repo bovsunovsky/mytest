@@ -10,6 +10,7 @@ use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Faker\Factory;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -174,5 +175,39 @@ class ClientController extends Controller
         return $models;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGenerate()
+    {
+        $faker = Factory::create();
+
+        for($i = 0; $i < 100; $i++)
+        {
+            $client = new Client();
+            $client->login = $faker->text(10);
+            $client->pass = $faker->text(10);
+            $client->firstname = $faker->text(10);
+            $client->lastname = $faker->text(10);
+            $client->sex = $faker->numberBetween(0,2);
+            $client->created_at = $faker->unixTime();
+            $client->email = $faker->email();
+
+            $k = rand(1,5);
+            for ($j=0; $j < $k ; $j++)
+            {
+                $adress = new ClientAdress();
+                $adress->parent_id = $i;
+                $adress->postcode = $faker->numberBetween(4 , 32);
+                $adress->country = $faker->countryCode;
+                $adress->sity = $faker->text(10);
+                $adress->street = $faker->text(10);
+                $adress->building = $faker->numberBetween(1, 100);
+                $adress->office = $faker->numberBetween(1, 999);
+                $adress->save(false);
+
+            }
+            $client->save(true);
+        }
+        die('Data generation is complete!');
     }
 }
