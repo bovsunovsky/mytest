@@ -34,8 +34,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'lastname',
             'pass',
-            'sex',
-            'created_at',
+            [
+                'attribute' => 'sex',
+                'label' => 'Пол',
+                'headerOptions' => ['width' => '100'],
+                'filter' => ['' => 'Все', 0 =>'Не указан',1 => 'Мужчина',2 => 'Женщина'],
+                'value' => function($model) {
+                    switch ($model->sex){
+                        case 0: return $model->sex = 'Не указан'; break;
+                        case 1: return $model->sex = 'Мужчина'; break;
+                        case 2: return $model->sex = 'Женщина'; break;
+                    }
+                }
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' =>  ['date', 'HH:mm dd.MM.YYYY'],
+                'label' => 'Создано',
+                'headerOptions' => ['width' => '100'],
+            ],
             'email:email',
 
             ['class' => 'yii\grid\ActionColumn',

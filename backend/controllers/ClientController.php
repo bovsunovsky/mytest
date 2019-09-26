@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Faker\Factory;
+use app\traits\DropDown;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -189,7 +190,8 @@ class ClientController extends Controller
             $client->firstname = $faker->text(10);
             $client->lastname = $faker->text(10);
             $client->sex = $faker->numberBetween(0,2);
-            $client->created_at = $faker->unixTime();
+//            $client->created_at = $faker->unixTime();
+            $client->created_at = $faker->dateTime()->format('HH:mm:ss dd.MM.YYYY');
             $client->email = $faker->email();
 
             $k = rand(1,5);
