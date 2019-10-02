@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created_at',
-                'format' =>  ['date', 'HH:mm dd.MM.YYYY'],
+                'format' =>  ['date', 'dd.MM.YYYY HH:mm'],
                 'label' => 'Создано',
                 'headerOptions' => ['width' => '100'],
             ],

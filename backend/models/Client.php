@@ -38,8 +38,10 @@ class Client extends \yii\db\ActiveRecord
             [['login'], 'string','min'=> 4],
             [['login'], 'unique'],
             [['pass'], 'string','min'=> 6],
-            [ ['firstname'],'filter','filter'=>'strtolower'],
+            [['firstname','lastname'], 'match', 'pattern' => '/^[a-z]\w*$/i', 'message'=>'Только буквы'],
+            [ ['firstname','lastname'],'filter','filter'=>'ucfirst'],
             [['sex'], 'integer'],
+            [['created_at'],'date', 'format'=>'dd.MM.YYYY HH:mm'],
             [['created_at'], 'safe'],
             [['login', 'pass', 'firstname', 'lastname', 'email'], 'string', 'max' => 255],
 
