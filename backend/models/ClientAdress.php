@@ -35,11 +35,12 @@ class ClientAdress extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'postcode', 'country', 'sity', 'street'], 'required'],
-            [['parent_id'], 'safe'],
             [['parent_id', 'building', 'office'], 'integer'],
-            [['postcode'], 'string', 'min'=>4 ,'max' => 32],
-            [['country'], 'string','min'=>2 , 'max' => 2],
-            [ ['country'],'filter','filter'=>'mb_strtoupper'],
+            [['postcode'], 'string', 'length' => [4, 32], 'tooShort'=>'Слишком мало, минимум 4', 'tooLong'=>'Слишком много, максимум 32 '],
+            [['postcode'], 'match', 'pattern' => '/^[0-9]*$/i', 'message'=>'Только цифры'],
+            [['country'], 'filter', 'filter' => 'trim'],
+            [['country'], 'string', 'length' => [2,2], 'tooShort'=>'Слишком мало,  2-английские заглавные буквы', 'tooLong'=>'Слишком много,  2-английские заглавные буквы'],
+            [['country'], 'match', 'pattern' => '/^[A-Z]\w*$/u', 'message'=>'Только английские заглавные буквы, 2-x символьная кодировка'],
             [['sity', 'street'], 'string', 'max' => 128],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Client::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ];
